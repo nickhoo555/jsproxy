@@ -12,6 +12,8 @@ const router = new Router();
 router.get("/", proxy((ctx) => {
     console.log(ctx);
     return new URL(ctx.request.url.searchParams.get("url"))
+},{
+  preserveHostHeader: true,
 }));
 
 /* router.get("/", async (ctx)=> {
