@@ -9,12 +9,19 @@ const router = new Router();
 //     return new URL("https://cdn.discordapp.com"+ctx.router.params.url)
 // }));
 
-router.get("/", proxy((ctx) => {
-    console.log(ctx);
-    return new URL(ctx.request.url.searchParams.get("url"))
-},{
-  preserveHostHeader: true,
-}));
+router.get("/", async (ctx) => {
+    // console.log(ctx);
+    let req = ctx.request
+    let fetchUrl =  ctx.request.url.searchParams.get("url")
+    console.log(fetchUrl)
+
+    let res =  await fetch(fetchUrl);
+    console.log(res)
+    ctx.response.headers = res.headers
+    ctx.response.body = res.body
+    
+    
+});
 
 /* router.get("/", async (ctx)=> {
     console.log(ctx.request.url.searchParams.get("url"));
@@ -23,5 +30,5 @@ router.get("/", proxy((ctx) => {
 
 app.use(router.routes());
 app.use(router.allowedMethods());
-await app.listen({ port: 80 });
+await app.listen({ port: 8080 });
 
