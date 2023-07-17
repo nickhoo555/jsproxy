@@ -12,7 +12,7 @@ const router = new Router();
 router.get("/", async (ctx) => {
     // console.log(ctx);
     let req = ctx.request
-    let fetchUrl =  ctx.request.url.searchParams.get("url")
+    let fetchUrl =  decodeURIComponent(ctx.request.url.searchParams.get("url"))
     console.log(fetchUrl)
 
     let res =  await fetch(fetchUrl);
